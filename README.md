@@ -112,7 +112,7 @@ func handlerX(data: [String:Any]) throws -> RequestHandler { return {
 
 ## Squishy Syntax
 
-A Squishy web page can have three different types of script natively:
+A Squishy web page can have three different types of scripts natively:
 
 - **HTML**. This is the default format. Just **NOTE** that escaping the double quotation mark if need. For example, `<META CHARSET=\"UTF-8\">`.
 - **Global Swift Code**. Content marked inside `<% ... %>` will be translated into a swift program in the current name space.
