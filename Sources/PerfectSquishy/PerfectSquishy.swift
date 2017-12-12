@@ -29,7 +29,7 @@ public class Squishy {
         let pointer = line,
         let text = String(validatingUTF8: pointer),
         !text.isEmpty
-      else { return }
+        else { return }
 
       let this = Unmanaged<Squishy>.fromOpaque(obj).takeUnretainedValue()
       switch state {
@@ -60,14 +60,15 @@ public class Squishy {
       }
     }
     let page = """
-\(head)
-func \(handlerName)(data: [String:Any]) throws -> RequestHandler { return {
-  request, response in
-  \(body)
-  response.completed()
-  }
-}\n
-"""
+    \(head)
+    func \(handlerName)(data: [String:Any]) throws -> RequestHandler { return {
+    request, response in
+    \(body)
+    response.completed()
+    }
+    }\n
+    """
     try page.write(to: URL(fileURLWithPath: targetPath), atomically: true, encoding: .utf8)
   }
 }
+

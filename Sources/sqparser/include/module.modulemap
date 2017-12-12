@@ -1,4 +1,5 @@
 module sqparser {
-    header "sqparser.h"
-    export *
+  header "sqparser.h"
+  export *
 }
+

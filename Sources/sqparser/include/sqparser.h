@@ -8,3 +8,4 @@
 typedef void (*ParserEvent)(void * caller, int state, const char * source);
 extern void parse_squishy(void * caller, const char * path, ParserEvent event);
 #endif
+
