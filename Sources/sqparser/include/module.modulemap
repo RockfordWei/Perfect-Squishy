@@ -1,0 +1,4 @@
+module sqparser {
+    header "sqparser.h"
+    export *
+}
