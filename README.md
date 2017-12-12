@@ -39,7 +39,7 @@
     </a>
 </p>
 
-**NOTE** This is not an official product of Perfect. However, Squishy is an independent parser library which can translate an "squishy" file into a Perfect Swift handler.
+**NOTE** This is not an official product of Perfect. However, Squishy is an independent parser library which can translate a "squishy" file into a Perfect Swift handler.
 
 A squishy file looks like this:
 
