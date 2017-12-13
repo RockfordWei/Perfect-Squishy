@@ -56,7 +56,8 @@ public class Squishy {
         body += block.content
         break;
       default:
-        body += "\n\tresponse.appendBody(string: \n\"\"\"\n\(block.content)\n\"\"\"\n)\n"
+        let escaped = block.content.replacingOccurrences(of: "\"", with: "\\\"")
+        body += "\n\tresponse.appendBody(string: \n\"\"\"\n\(escaped)\n\"\"\"\n)\n"
       }
     }
     let page = """

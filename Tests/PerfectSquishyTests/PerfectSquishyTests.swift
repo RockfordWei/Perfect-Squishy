@@ -12,7 +12,7 @@ func add(a: Int, b: Int) -> {
   return a + b
 }
 %>
-<HTML><HEAD><META CHARSET=\\"UTF-8\\">
+<HTML><HEAD><META CHARSET=\"UTF-8\">
 <TITLE>测试脚本</TITLE>
 </HEAD><BODY>
 <?

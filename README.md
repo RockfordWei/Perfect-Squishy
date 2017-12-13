@@ -41,7 +41,7 @@
 
 **NOTE** This is not an official product of Perfect. However, Squishy is an independent parser library which can translate a "squishy" file into a Perfect Swift handler.
 
-A squishy file looks like this:
+A squishy file looks like this - yes, it is a Swift-style hyper text preprocessor:
 
 ``` php
 <%
@@ -53,7 +53,7 @@ func add(a: Int, b: Int) -> {
   return a + b
 }
 %>
-<HTML><HEAD><META CHARSET=\"UTF-8\">
+<HTML><HEAD><META CHARSET="UTF-8">
 <TITLE>测试脚本</TITLE>
 </HEAD><BODY>
 <?
@@ -114,9 +114,9 @@ func handlerX(data: [String:Any]) throws -> RequestHandler { return {
 
 A Squishy web page can have three different types of scripts natively:
 
-- **HTML**. This is the default format. Just **NOTE** that escaping the double quotation mark if need. For example, `<META CHARSET=\"UTF-8\">`.
+- **HTML**. This is the default format.
 - **Global Swift Code**. Content marked inside `<% ... %>` will be translated into a swift program in the current name space.
-- **Perfect Route Handler**. Content that marked with `<? ... ?>` will be treated as a standard named *Perfect Route Handler*, where the two key variable `request: HTTPRequest` and `response: HTTPResponse` are available in this section.
+- **Perfect Route Handler**. Content that marked with `<? ... ?>` will be treated as a standard named *Perfect Route Handler*, where the two key variables `request: HTTPRequest` and `response: HTTPResponse` are available in this section.
 
 ## Prerequisites
 
@@ -126,7 +126,7 @@ Swift 4.0 toolchain.
 
 ```
 .package(url: "https://github.com/RockfordWei/Perfect-Squishy.git", 
-from: "1.0.0")
+from: "1.0.1")
 
 ...
 dependencies: ["PerfectSquishy"]
