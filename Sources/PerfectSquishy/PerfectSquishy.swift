@@ -44,7 +44,7 @@ public class Squishy {
     if let err = parserError {
       throw err
     }
-    var head = ""
+    var head = "import PerfectLib\nimport PerfectHTTP\nimport PerfectHTTPServer\n"
     var body = ""
     for block in blocks {
       switch block.type {

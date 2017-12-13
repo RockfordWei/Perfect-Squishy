@@ -4,10 +4,7 @@ import XCTest
 class PerfectSquishyTests: XCTestCase {
   let sampleScript1 = """
 <%
-import PerfectLib
-import PerfectHTTP
-import PerfectHTTPServer
-
+import Foundation
 func add(a: Int, b: Int) -> {
   return a + b
 }
@@ -34,7 +31,12 @@ func add(a: Int, b: Int) -> {
       try sampleScript1.write(to: URL(fileURLWithPath: from), atomically: true, encoding: .utf8)
       let parser = Squishy(handler: "handlerX", from: from, to: to)
       try parser.parse()
-      debugPrint(parser.blocks)
+      let data = try Data(contentsOf: URL(fileURLWithPath: to))
+      guard let outcome = String(bytes: data, encoding: .utf8) else {
+        XCTFail("outcome \(to) is not available")
+        return
+      }
+      debugPrint(outcome)
     } catch {
       XCTFail("\(error)")
     }
