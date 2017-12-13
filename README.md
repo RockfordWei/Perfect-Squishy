@@ -114,7 +114,7 @@ func handlerX(data: [String:Any]) throws -> RequestHandler { return {
 
 A Squishy web page can have three different types of scripts natively:
 
-- **HTML**. This is the default format.
+- **HTML**. This is the default format. **NOTE** The only feature you may take interests here is that Swift Interpolation `\(variable)` is available here.
 - **Global Swift Code**. Content marked inside `<% ... %>` will be translated into a swift program in the current name space.
 - **Perfect Route Handler**. Content that marked with `<? ... ?>` will be treated as a standard named *Perfect Route Handler*, where the two key variables `request: HTTPRequest` and `response: HTTPResponse` are available in this section.
 
