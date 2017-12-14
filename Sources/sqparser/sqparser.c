@@ -3,6 +3,12 @@
 #include <string.h>
 #include <sys/stat.h>
 #include "sqparser.h"
+#define COPY_TEXT(caller, state, sz, string, cursor, cache) \
+string = (char*) malloc(sz + 1); \
+memset(string, 0, sz + 1); \
+memcpy(string, cache, sz); \
+(*event)(caller, state, string); \
+free(string);
 
 void parse_squishy(void * caller, const char * path, ParserEvent event)
 {
@@ -41,21 +47,13 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
         if (next >= terminal || state != HTML) break;
         if (*next == '?') {
           sz = (size_t)(cursor - cache);
-          string = (char*) malloc(sz + 1);
-          memset(string, 0, sz + 1);
-          memcpy(string, cache, sz);
-          (*event)(caller, state, string);
-          free(string);
+          COPY_TEXT(caller, state, sz, string, cursor, cache);
           cache = next + 1;
           cursor = cache;
           state = SWIFT_BODY;
         } else if (*next == '%') {
           sz = (size_t)(cursor - cache);
-          string = (char*) malloc(sz + 1);
-          memset(string, 0, sz + 1);
-          memcpy(string, cache, sz);
-          (*event)(caller, state, string);
-          free(string);
+          COPY_TEXT(caller, state, sz, string, cursor, cache);
           cache = next + 1;
           cursor = cache;
           state = SWIFT_HEAD;
@@ -67,11 +65,7 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
         if (next >= terminal || (state != SWIFT_BODY && state != SWIFT_HEAD)) break;
         if (*next != '>') break;
         sz = (size_t)(cursor - cache);
-        string = (char*) malloc(sz + 1);
-        memset(string, 0, sz + 1);
-        memcpy(string, cache, sz);
-        (*event)(caller, state, string);
-        free(string);
+        COPY_TEXT(caller, state, sz, string, cursor, cache);
         cache = next + 1;
         cursor = cache;
         state = HTML;
@@ -89,11 +83,7 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
   }
   if (cache < terminal) {
     sz = (size_t)(terminal - cache);
-    string = (char*) malloc(sz + 1);
-    memset(string, 0, sz + 1);
-    memcpy(string, cache, sz);
-    (*event)(caller, state, string);
-    free(string);
+    COPY_TEXT(caller, state, sz, string, cursor, cache);
   }
 }
 
