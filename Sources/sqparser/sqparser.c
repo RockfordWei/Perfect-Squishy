@@ -9,6 +9,30 @@ memset(string, 0, sz + 1); \
 memcpy(string, cache, sz); \
 (*event)(caller, state, string); \
 free(string);
+typedef struct STACK {
+  int data;
+  struct STACK * next;
+} Stack;
+
+Stack * push(Stack * stack, int data) {
+  Stack * top = (Stack *)malloc(sizeof(Stack));
+  memset(top, 0, sizeof(Stack));
+  top->data = data;
+  top->next = stack;
+  return top;
+}
+
+Stack * pop(Stack * stack, int * data) {
+  if (stack && data) {
+    Stack * top = stack;
+    *data = top->data;
+    Stack * next = top->next;
+    free(top);
+    return next;
+  } else {
+    return stack;
+  }
+}
 
 void parse_squishy(void * caller, const char * path, ParserEvent event)
 {
@@ -36,7 +60,8 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
     (*event)(caller, ERROR, "File not read");
     return ;
   }
-  int state = HTML, last_state = HTML;
+  int state = HTML;
+  Stack * stack = NULL;
   char * cache = source, * next = source,
   * string =  NULL, * terminal = source + size;
   size_t sz = 0;
@@ -73,9 +98,9 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
       case '\"':
       case '\'':
         if (state == QUOTATION) {
-          state = last_state;
+          stack = pop(stack, &state);
         } else {
-          last_state = state;
+          stack = push(stack, state);
           state = QUOTATION;
         }
         break;
