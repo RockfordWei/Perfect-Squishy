@@ -95,13 +95,20 @@ void parse_squishy(void * caller, const char * path, ParserEvent event)
         cursor = cache;
         state = HTML;
         break;
-      case '\"':
       case '\'':
-        if (state == QUOTATION) {
+        if (state == QUOTATION_SINGLE) {
           stack = pop(stack, &state);
         } else {
           stack = push(stack, state);
-          state = QUOTATION;
+          state = QUOTATION_SINGLE;
+        }
+        break;
+      case '\"':
+        if (state == QUOTATION_DOUBLE) {
+          stack = pop(stack, &state);
+        } else {
+          stack = push(stack, state);
+          state = QUOTATION_DOUBLE;
         }
         break;
     }
